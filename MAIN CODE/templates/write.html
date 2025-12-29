@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Write a Rant</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg0: #050505;
+      --bg1: #0d0d0d;
+      --panel: rgba(12, 12, 12, 0.93);
+      --line: #2a2a2a;
+      --dash: #303030;
+      --text: #f0ebe1;
+      --muted: #b8b1a6;
+      --mono: 'Courier New', Courier, monospace;
+      --accent: #ff4d3a;
+      --accent2: #b23a2f;
+      --shadow: 0 25px 70px rgba(0,0,0,0.75);
+    }
+    body {
+      font-family: Impact, Haettenschweiler, 'Arial Black', 'Franklin Gothic Medium', 'Segoe UI', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255,255,255,0.05), transparent 45%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, rgba(0,0,0,0) 2px 8px),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 70%, #000 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 40px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 40%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0) 1px 6px);
+      mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+    h1 {
+      color: var(--text);
+      font-size: 2.5em;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85), 0 0 18px rgba(178, 58, 47, 0.25);
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 30px;
+      font-family: var(--mono);
+    }
+    input[type="text"], textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      font-size: 1em;
+      font-family: var(--mono);
+      background: rgba(10, 10, 10, 0.85);
+      color: var(--text);
+      transition: border-color 0.3s;
+    }
+    input[type="text"]:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent2);
+      box-shadow: 0 0 0 3px rgba(178, 58, 47, 0.18);
+    }
+    textarea {
+      resize: vertical;
+      min-height: 200px;
+    }
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent2), #3a0f0b);
+      color: var(--text);
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #4a1913;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    button:focus-visible {
+      outline: 2px solid rgba(255, 77, 58, 0.6);
+      outline-offset: 3px;
+    }
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .back-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      font-family: var(--mono);
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+    ::placeholder {
+      color: #9b948b;
+    }
+
+    @media (max-width: 700px) {
+      .container { padding: 22px; }
+      h1 { font-size: 2.1em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Unleash the Chaos</h1>
+    <p class="subtitle">type it like you mean it.</p>
+
+    <form method="post">
+      <input type="text" name="username" placeholder="display name (optional)">
+      <input type="text" name="title" placeholder="title" required>
+      <textarea name="body" placeholder="start yapping..." required></textarea>
+      <input type="text" name="tags" placeholder="tags,comma,separated">
+      <button type="submit">Post</button>
+    </form>
+
+    <div class="back-link">
+      <a href="/">← Back to Rants</a>
+    </div>
+  </div>
+</body>
+</html>
