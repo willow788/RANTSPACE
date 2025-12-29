@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Moderation</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Impact, Haettenschweiler, 'Arial Black', 'Franklin Gothic Medium', 'Segoe UI', sans-serif;
+      color: #e7e2d7;
+      background:
+        radial-gradient(circle at 10% 15%, rgba(255,255,255,0.05), transparent 50%),
+        radial-gradient(circle at 90% 35%, rgba(255,255,255,0.04), transparent 45%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, rgba(0,0,0,0) 2px 7px),
+        linear-gradient(180deg, #050505 0%, #0d0d0d 70%, #000 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      background: rgba(12, 12, 12, 0.92);
+      border-radius: 14px;
+      padding: 40px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.75);
+      position: relative;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 25% 30%, rgba(255,255,255,0.05), transparent 40%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0) 1px 6px);
+      mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+    h1 {
+      color: #f0ebe1;
+      font-size: 2.5em;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85), 0 0 18px rgba(178, 58, 47, 0.25);
+    }
+    .rant-card {
+      background: rgba(20, 20, 20, 0.92);
+      border-left: 4px solid #b23a2f;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px dashed #303030;
+    }
+    .rant-title {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #f0ebe1;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85);
+    }
+    .rant-meta {
+      color: #b8b1a6;
+      margin-bottom: 15px;
+      font-size: 0.9em;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .rant-body {
+      color: #d8d2c8;
+      margin-bottom: 15px;
+      line-height: 1.5;
+      max-height: 100px;
+      overflow: hidden;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      padding: 10px 25px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    button[value="approve"] {
+      background: linear-gradient(135deg, #a6b800, #2a2a00);
+      color: #f3efe6;
+      border: 1px solid rgba(166, 184, 0, 0.35);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    button[value="approve"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    button[value="delete"] {
+      background: linear-gradient(135deg, #b23a2f, #3a0f0b);
+      color: #f3efe6;
+      border: 1px solid #4a1913;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+    }
+    button[value="delete"]:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    .no-rants {
+      text-align: center;
+      color: #b8b1a6;
+      font-size: 1.2em;
+      padding: 60px 20px;
+      background: rgba(20, 20, 20, 0.92);
+      border-radius: 12px;
+      border: 1px dashed #303030;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .logout {
+      text-align: center;
+      margin-top: 30px;
+    }
+    .logout a {
+      color: #ff4d3a;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    .logout a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Moderation Panel</h1>
+
+    {% if pending_rants %}
+      {% for r in pending_rants %}
+        <div class="rant-card">
+          <div class="rant-title">{{ r[2] }}</div>
+          <div class="rant-meta">👤 {{ r[1] }} | 📅 {{ r[6] }}</div>
+          <div class="rant-body">{{ r[3][:200] }}{% if r[3]|length > 200 %}...{% endif %}</div>
+          <form method="post" class="actions">
+            <input type="hidden" name="rant_id" value="{{ r[0] }}">
+            <button name="action" value="approve">✅ Approve</button>
+            <button name="action" value="delete">🗑️ Delete</button>
+          </form>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-rants">
+        <p>No pending rants.</p>
+        <p>Nothing left to judge.</p>
+      </div>
+    {% endif %}
+
+    <div class="logout">
+      <a href="/admin/logout">Logout</a>
+    </div>
+  </div>
+</body>
+</html>
