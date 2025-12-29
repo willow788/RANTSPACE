@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>RantSpace</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg0: #050505;
+      --bg1: #0d0d0d;
+      --panel: rgba(12, 12, 12, 0.93);
+      --panel2: rgba(20, 20, 20, 0.92);
+      --line: #2a2a2a;
+      --dash: #303030;
+      --text: #f0ebe1;
+      --muted: #b8b1a6;
+      --mono: 'Courier New', Courier, monospace;
+      --accent: #ff4d3a;
+      --accent2: #b23a2f;
+      --shadow: 0 25px 70px rgba(0,0,0,0.75);
+    }
+    body {
+      font-family: Impact, Haettenschweiler, 'Arial Black', 'Franklin Gothic Medium', 'Segoe UI', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(circle at 10% 10%, rgba(255,255,255,0.06), transparent 45%),
+        radial-gradient(circle at 90% 20%, rgba(255,255,255,0.04), transparent 40%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, rgba(0,0,0,0) 2px 7px),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 70%, #000 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 40px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,0.05), transparent 35%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0) 1px 6px);
+      mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+    h1 {
+      color: var(--text);
+      font-size: 3.1em;
+      margin-bottom: 10px;
+      text-align: center;
+      font-weight: bold;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85), 0 0 18px rgba(178, 58, 47, 0.25);
+    }
+    .subtitle {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 30px;
+      font-size: 1.1em;
+      font-family: var(--mono);
+      letter-spacing: 0.4px;
+    }
+    .write-btn {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--accent2), #3a0f0b);
+      color: var(--text);
+      padding: 15px 40px;
+      text-decoration: none;
+      border-radius: 10px;
+      font-weight: bold;
+      font-size: 1.1em;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #4a1913;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .write-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    .write-btn:focus-visible {
+      outline: 2px solid rgba(255, 77, 58, 0.6);
+      outline-offset: 3px;
+    }
+    .btn-container {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .rant-card {
+      background: var(--panel2);
+      border-left: 4px solid var(--accent2);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 12px;
+      border: 1px dashed var(--dash);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .rant-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 10px 22px rgba(0,0,0,0.55);
+    }
+    .rant-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: var(--text);
+      text-decoration: none;
+      display: block;
+      margin-bottom: 10px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85);
+    }
+    .rant-title:hover {
+      color: var(--accent);
+    }
+    .rant-title:focus-visible {
+      outline: 2px solid rgba(255, 77, 58, 0.6);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+    .rant-meta {
+      color: var(--muted);
+      font-size: 0.9em;
+      line-height: 1.6;
+      font-family: var(--mono);
+    }
+    .rant-preview {
+      color: #d8d2c8;
+      margin-top: 10px;
+      line-height: 1.5;
+      font-family: var(--mono);
+    }
+    .tag {
+      background: rgba(178, 58, 47, 0.15);
+      color: #ffb2aa;
+      padding: 3px 10px;
+      border-radius: 6px;
+      border: 1px solid rgba(178, 58, 47, 0.35);
+      font-size: 0.85em;
+      display: inline-block;
+      margin-right: 5px;
+      margin-top: 6px;
+    }
+    .likes {
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .no-rants {
+      text-align: center;
+      color: var(--muted);
+      font-size: 1.2em;
+      padding: 60px 20px;
+      background: var(--panel2);
+      border-radius: 12px;
+      border: 1px dashed var(--dash);
+      font-family: var(--mono);
+    }
+
+    @media (max-width: 700px) {
+      .container { padding: 22px; }
+      h1 { font-size: 2.4em; }
+      .write-btn { width: 100%; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>RantSpace</h1>
+    <p class="subtitle">grudge-friendly. grunge-approved.</p>
+
+    <div class="btn-container">
+      <a href="/write" class="write-btn">Unleash Your Rant</a>
+    </div>
+
+    {% if rants %}
+      {% for r in rants %}
+        <div class="rant-card">
+          <a href="/rant/{{ r[0] }}" class="rant-title">{{ r[2] }}</a>
+          <div class="rant-meta">
+            👤 <strong>{{ r[1] }}</strong> 
+            {% if r[4] %}
+              | 🏷️
+              {% for t in r[4].split(',') %}
+                {% set tt = t.strip() %}
+                {% if tt %}<span class="tag">{{ tt }}</span>{% endif %}
+              {% endfor %}
+            {% endif %}
+            | <span class="likes">❤️ {{ r[5] }}</span>
+          </div>
+          <div class="rant-preview">{{ r[3][:150] }}{% if r[3]|length > 150 %}...{% endif %}</div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="no-rants">
+        <p>No approved rants yet.</p>
+        <p>Be the first to ruin the peace.</p>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
