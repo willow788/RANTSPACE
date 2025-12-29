@@ -232,10 +232,23 @@ Open your browser and go to:  **`http://localhost:5000`**
 - 🔐 Admin password is hardcoded. Change it or live dangerously.  Your choice.
 
 ---
+## ⚠️ Community Guidelines
+
+**RANTSPACE** is a place to vent frustrations, not to harm others. 
+
+- ❌ **DO NOT** post anyone's personal or sensitive information (names, addresses, phone numbers, emails, etc.)
+- ❌ **DO NOT** doxx, harass, or target specific individuals
+- ✅ **DO** keep it anonymous and focus on the situation, not the person
+- ✅ **DO** remember:  rant responsibly
+
+**Violators will have their posts removed and may be banned from the platform.**
+
+> *Vent your anger, not someone else's secrets.  Keep it classy(ish).* 🎯
 
 ## 📝 License
 
 Do whatever you want with this.  Just don't sue me if your rants get too spicy.  🌶️
+BUT DON'T HURT ANYONE!
 
 ---
 
