@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{{ rant[2] }}</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg0: #050505;
+      --bg1: #0d0d0d;
+      --panel: rgba(12, 12, 12, 0.93);
+      --line: #2a2a2a;
+      --dash: #303030;
+      --text: #f0ebe1;
+      --muted: #b8b1a6;
+      --mono: 'Courier New', Courier, monospace;
+      --accent: #ff4d3a;
+      --accent2: #b23a2f;
+      --shadow: 0 25px 70px rgba(0,0,0,0.75);
+    }
+    body {
+      font-family: Impact, Haettenschweiler, 'Arial Black', 'Franklin Gothic Medium', 'Segoe UI', sans-serif;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background:
+        radial-gradient(circle at 75% 20%, rgba(255,255,255,0.05), transparent 45%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.03) 0 2px, rgba(0,0,0,0) 2px 7px),
+        linear-gradient(180deg, var(--bg0) 0%, var(--bg1) 70%, #000 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      background: var(--panel);
+      border-radius: 14px;
+      padding: 40px;
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 25% 25%, rgba(255,255,255,0.05), transparent 40%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0) 1px 6px);
+      mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+    h1 {
+      color: var(--text);
+      font-size: 2.5em;
+      margin-bottom: 20px;
+      line-height: 1.2;
+      letter-spacing: 0.6px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85), 0 0 18px rgba(178, 58, 47, 0.25);
+    }
+    .meta {
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px dashed var(--dash);
+      font-size: 1em;
+      font-family: var(--mono);
+    }
+    .author {
+      font-weight: bold;
+      color: var(--accent);
+    }
+    .tags {
+      margin-top: 10px;
+    }
+    .tag {
+      background: rgba(178, 58, 47, 0.15);
+      color: #ffb2aa;
+      padding: 5px 15px;
+      border-radius: 6px;
+      border: 1px solid rgba(178, 58, 47, 0.35);
+      display: inline-block;
+      margin-right: 5px;
+      font-size: 0.9em;
+      margin-top: 6px;
+    }
+    .body {
+      font-size: 1.1em;
+      line-height: 1.8;
+      color: #d8d2c8;
+      margin-bottom: 30px;
+      white-space: pre-wrap;
+      font-family: var(--mono);
+    }
+    .actions {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding-top: 20px;
+      border-top: 1px dashed var(--dash);
+    }
+    .likes {
+      font-size: 1.3em;
+      color: var(--accent);
+      font-weight: bold;
+    }
+    .like-btn {
+      background: linear-gradient(135deg, var(--accent2), #3a0f0b);
+      color: var(--text);
+      padding: 12px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #4a1913;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .like-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+    .like-btn:focus-visible {
+      outline: 2px solid rgba(255, 77, 58, 0.6);
+      outline-offset: 3px;
+    }
+    .back-link {
+      margin-top: 30px;
+      text-align: center;
+    }
+    .back-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1em;
+      font-family: var(--mono);
+    }
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+    .back-link a:focus-visible {
+      outline: 2px solid rgba(255, 77, 58, 0.6);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 700px) {
+      .container { padding: 22px; }
+      h1 { font-size: 2.1em; }
+      .actions { flex-wrap: wrap; }
+      .like-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>{{ rant[2] }}</h1>
+    
+    <div class="meta">
+      <div>👤 By <span class="author">{{ rant[1] }}</span></div>
+      <div>📅 {{ rant[6] }}</div>
+      {% if rant[4] %}
+        <div class="tags">🏷️
+          {% for t in rant[4].split(',') %}
+            {% set tt = t.strip() %}
+            {% if tt %}<span class="tag">{{ tt }}</span>{% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="body">{{ rant[3] }}</div>
+
+    <div class="actions">
+      <span class="likes">❤️ {{ rant[5] }}</span>
+      <form method="post" action="/like/{{ rant[0] }}" style="display:inline;">
+        <button type="submit" class="like-btn">👍 Like (+2)</button>
+      </form>
+    </div>
+
+    <div class="back-link">
+      <a href="/">← Back to All Rants</a>
+    </div>
+  </div>
+</body>
+</html>
