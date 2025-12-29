@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Login</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: Impact, Haettenschweiler, 'Arial Black', 'Franklin Gothic Medium', 'Segoe UI', sans-serif;
+      color: #e7e2d7;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,255,255,0.05), transparent 50%),
+        repeating-linear-gradient(135deg, rgba(255,255,255,0.03) 0 2px, rgba(0,0,0,0) 2px 8px),
+        linear-gradient(180deg, #050505 0%, #0d0d0d 70%, #000 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 400px;
+      background: rgba(12, 12, 12, 0.92);
+      border-radius: 14px;
+      padding: 40px;
+      border: 1px solid #2a2a2a;
+      box-shadow: 0 25px 70px rgba(0,0,0,0.75);
+      position: relative;
+    }
+    .container:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: 14px;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255,255,255,0.05), transparent 45%),
+        repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0 1px, rgba(0,0,0,0) 1px 6px);
+      mix-blend-mode: overlay;
+      opacity: 0.55;
+    }
+    h1 {
+      color: #f0ebe1;
+      font-size: 2em;
+      margin-bottom: 10px;
+      text-align: center;
+      letter-spacing: 1px;
+      text-shadow: 0 2px 0 rgba(0,0,0,0.85), 0 0 18px rgba(178, 58, 47, 0.25);
+    }
+    .subtitle {
+      text-align: center;
+      color: #b8b1a6;
+      margin-bottom: 30px;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    input[type="password"] {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 20px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      font-size: 1em;
+      transition: border-color 0.3s;
+      background: rgba(10, 10, 10, 0.85);
+      color: #e7e2d7;
+      font-family: 'Courier New', Courier, monospace;
+    }
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #b23a2f;
+    }
+    button {
+      width: 100%;
+      background: linear-gradient(135deg, #b23a2f, #3a0f0b);
+      color: #f3efe6;
+      padding: 15px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      border: 1px solid #4a1913;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(0,0,0,0.75);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Admin Panel</h1>
+    <p class="subtitle">enter password. no witnesses.</p>
+    
+    <form method="post">
+      <input type="password" name="password" placeholder="password" required autofocus>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+</body>
+</html>
